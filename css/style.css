@@ -1,0 +1,284 @@
+:root {
+  --primary: #176A5A;
+  --secondary: #008f5d;
+  --bg-btn: #00a86b;
+  --white: #FFF;
+  --text-gray: #4a5d4a;
+  --border-color: #e0e0e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #d4fc79 0%, #96e6a1 100%);
+  background-attachment: fixed;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  background-color: var(--white);
+  padding: 20px 32px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 40px;
+}
+
+.header__title {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.header__subtitle {
+  font-size: 1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* O Cartão Branco */
+.calculator {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/* Inputs e Labels */
+.calculator__group {
+  margin-bottom: 20px;
+}
+
+.calculator__label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.calculator__input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fdfdfd;
+}
+
+.readonly-input {
+  background-color: #f5f5f5 !important;
+  color: #888;
+}
+
+.helper-text {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 5px;
+  display: block;
+}
+
+.calculator__help {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Checkbox Manual */
+.calculator__group--manual {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.calculator__checkbox {
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
+}
+
+/* Grid de Transporte */
+.transport-grid {
+  border: none;
+  margin-bottom: 30px;
+}
+
+.transport-grid__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.transport-grid__item {
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 15px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+/* Esconde o rádio padrão */
+.transport-grid__input {
+  display: none;
+}
+
+/* Efeito de Seleção (Destaque Verde) */
+.transport-grid__item:has(input:checked) {
+  border-color: var(--primary);
+  background-color: #f0fdf4;
+  box-shadow: 0 4px 10px rgba(23, 106, 90, 0.1);
+}
+
+.transport-grid__icon {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.transport-grid__text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Botão */
+.button {
+  width: 100%;
+  background-color: var(--bg-btn);
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: var(--secondary);
+}
+
+.button--primary {
+  background-color: var(--bg-btn);
+}
+
+.calculator__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.footer {
+  margin-top: 20px;
+  color: #666;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Seções de Resultado */
+.results, .comparison, .carbon-credits {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 550px;
+  margin: 20px auto 0;
+}
+
+.results__title,
+.comparison__title,
+.carbon-credits__title {
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.results__content,
+.comparison__content,
+.carbon-credits__content {
+  line-height: 1.8;
+  color: #333;
+}
+
+.results__content ul,
+.comparison__content ul,
+.carbon-credits__content ul {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.results__content li,
+.comparison__content li,
+.carbon-credits__content li {
+  margin-bottom: 8px;
+}
+
+.results__content h4,
+.comparison__content h4,
+.carbon-credits__content h4 {
+  color: var(--primary);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+/* Utility class to hide elements */
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .transport-grid__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .calculator {
+    padding: 25px;
+  }
+
+  .header__title {
+    font-size: 1.5rem;
+  }
+
+  .calculator__input {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+}
