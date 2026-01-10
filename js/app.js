@@ -50,7 +50,7 @@
         var comparison = window.CALCULATOR.compareModes(distance);
         var credits = emission.kg / (window.CONFIG.CARBON_CREDIT.KG_PER_CREDIT || 1000);
 
-        window.UI.showResults(emission, comparison, credits);
+        window.UI.showResults(emission, comparison, credits, distance, originVal, destVal, mode);
       });
     }
 

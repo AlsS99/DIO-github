@@ -27,24 +27,63 @@
       });
     },
 
-    showResults: function (emission, comparison, credits) {
+    showResults: function (emission, comparison, credits, distance, origin, destination, mode) {
       var results = $('#results-content');
       var comparisonEl = $('#comparison-content');
       var creditsEl = $('#carbon-credits-content');
 
-      results.innerHTML = '<p><strong>Emissão estimada:</strong> ' + emission.kg.toFixed(2) + ' kg CO₂ (' + emission.tons.toFixed(3) + ' t)</p>';
+      // Obter label do modo de transporte
+      var modeLabel = window.CONFIG.TRANSPORT_MODES[mode] ? window.CONFIG.TRANSPORT_MODES[mode].label : mode;
+      var modeIcon = window.CONFIG.TRANSPORT_MODES[mode] ? window.CONFIG.TRANSPORT_MODES[mode].icon : '🚗';
 
-      var html = '<h4>Comparação por modo</h4><ul>';
-      Object.keys(comparison).forEach(function (m) {
-        var mode = window.CONFIG.TRANSPORT_MODES[m];
-        var label = mode ? mode.label : m;
-        html += '<li>' + label + ': ' + comparison[m].kg.toFixed(2) + ' kg CO₂</li>';
+      // Resultado detalhado
+      var resultsHTML = '<div class="result-card">';
+      resultsHTML += '<div class="result-item"><span class="result-label">🛣️ Rota:</span> <span class="result-value">' + origin + ' → ' + destination + '</span></div>';
+      resultsHTML += '<div class="result-item"><span class="result-label">📏 Distância:</span> <span class="result-value">' + distance.toFixed(2) + ' km</span></div>';
+      resultsHTML += '<div class="result-item"><span class="result-label">🚗 Transporte:</span> <span class="result-value">' + modeIcon + ' ' + modeLabel + '</span></div>';
+      resultsHTML += '<div class="result-item highlight"><span class="result-label">💨 Emissão de CO₂:</span> <span class="result-value">' + emission.kg.toFixed(2) + ' kg (' + emission.tons.toFixed(3) + ' t)</span></div>';
+      resultsHTML += '</div>';
+      results.innerHTML = resultsHTML;
+
+      // Comparação com cards visuais
+      var html = '<div class="comparison-grid">';
+      var modes = ['bicycle', 'car', 'bus', 'truck'];
+      var sustainabilityIcons = {
+        bicycle: '🌿',
+        bus: '♻️',
+        car: '⚠️',
+        truck: '🔴'
+      };
+      
+      modes.forEach(function (m) {
+        var modeData = window.CONFIG.TRANSPORT_MODES[m];
+        var isCurrent = m === mode;
+        var cardClass = 'comparison-card ' + (isCurrent ? 'comparison-card--selected' : '');
+        var sustainability = sustainabilityIcons[m] || '';
+        
+        html += '<div class="' + cardClass + '">';
+        html += '<div class="comparison-icon">' + modeData.icon + '</div>';
+        html += '<div class="comparison-name">' + modeData.label + '</div>';
+        html += '<div class="comparison-emission">' + comparison[m].kg.toFixed(2) + ' kg</div>';
+        html += '<div class="comparison-sustainability">' + sustainability + '</div>';
+        if (isCurrent) {
+          html += '<div class="comparison-badge">✓ Selecionado</div>';
+        }
+        html += '</div>';
       });
-      html += '</ul>';
+      html += '</div>';
       comparisonEl.innerHTML = html;
 
-      creditsEl.innerHTML = '<p>Créditos necessários: <strong>' + credits.toFixed(2) + '</strong> (1 crédito = ' + window.CONFIG.CARBON_CREDIT.KG_PER_CREDIT + ' kg)</p>';
+      // Créditos com custo estimado
+      var costMin = (credits * window.CONFIG.CARBON_CREDIT.PRICE_MIN_BRL).toFixed(2);
+      var costMax = (credits * window.CONFIG.CARBON_CREDIT.PRICE_MAX_BRL).toFixed(2);
+      
+      var creditsHTML = '<div class="credits-card">';
+      creditsHTML += '<div class="credit-item"><span class="credit-label">🎫 Créditos Necessários:</span> <span class="credit-value">' + credits.toFixed(2) + ' créditos</span></div>';
+      creditsHTML += '<div class="credit-item"><span class="credit-label">💰 Custo Estimado:</span> <span class="credit-value">R$ ' + costMin + ' - R$ ' + costMax + '</span></div>';
+      creditsEl.innerHTML = creditsHTML;
 
+      // Mostrar seções
       ['#results','#comparison','#carbon-credits'].forEach(function (sel) {
         var el = document.querySelector(sel);
         if (!el) return;

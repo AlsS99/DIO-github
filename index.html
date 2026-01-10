@@ -21,12 +21,13 @@
     <form id="calculator-form" class="calculator" novalidate>
       <!-- Origin Input -->
       <div class="calculator__group">
-        <label for="origin" class="calculator__label">Origem</label>
+        <label for="origin" class="calculator__label">🌍 Origem</label>
         <input 
           id="origin" 
           name="origin" 
           list="cities-list" 
           class="calculator__input" 
+          placeholder="Digite a cidade de origem"
           autocomplete="off" 
           aria-autocomplete="list"
           required
@@ -36,12 +37,13 @@
 
       <!-- Destination Input -->
       <div class="calculator__group">
-        <label for="destination" class="calculator__label">Destino</label>
+        <label for="destination" class="calculator__label">🎯 Destino</label>
         <input 
           id="destination" 
           name="destination" 
           list="cities-list" 
           class="calculator__input" 
+          placeholder="Digite a cidade de destino"
           autocomplete="off"
           required
         />
@@ -134,19 +136,24 @@
 
     <!-- Results Section -->
     <section id="results" class="results hidden" aria-hidden="true">
-      <h2 class="results__title">Resultado</h2>
+      <h2 class="results__title">📊 Resultado da Emissão</h2>
       <div id="results-content" class="results__content"></div>
     </section>
 
     <!-- Comparison Section -->
     <section id="comparison" class="comparison hidden" aria-hidden="true">
-      <h2 class="comparison__title">Comparação por Modo</h2>
+      <h2 class="comparison__title">🚗 Comparação por Modo de Transporte</h2>
+      <p class="comparison__hint">💡 Dica: Escolha meios mais sustentáveis para reduzir emissões!</p>
       <div id="comparison-content" class="comparison__content"></div>
     </section>
 
     <!-- Carbon Credits Section -->
     <section id="carbon-credits" class="carbon-credits hidden" aria-hidden="true">
-      <h2 class="carbon-credits__title">Créditos de Carbono</h2>
+      <h2 class="carbon-credits__title">🌱 Créditos de Carbono</h2>
+      <div class="carbon-credits__info-box">
+        <h3 class="carbon-credits__subtitle">❓ O que são créditos de carbono?</h3>
+        <p class="carbon-credits__explanation">Créditos de carbono representam a compensação de emissões de CO₂, onde cada crédito equivale a 1 tonelada de CO₂ evitada ou compensada.</p>
+      </div>
       <div id="carbon-credits-content" class="carbon-credits__content"></div>
     </section>
   </main>
