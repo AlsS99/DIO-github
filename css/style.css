@@ -501,15 +501,16 @@ main {
 
 /* Comparison Hint */
 .comparison__hint {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 16px;
+  background: linear-gradient(135deg, #fff3cd 0%, #fffacd 100%);
+  border-left: 4px solid #f4a259;
   border-radius: 8px;
+  padding: 14px 16px;
   margin-top: 10px;
   margin-bottom: 20px;
   color: #856404;
   font-size: 0.95rem;
   font-weight: 500;
+  line-height: 1.5;
 }
 
 /* Responsive Design */

@@ -47,7 +47,7 @@
 
       // Comparação com cards visuais
       var html = '<div class="comparison-grid">';
-      var modes = ['bicycle', 'car', 'bus', 'truck'];
+      var modes = ['bicycle', 'bus', 'car', 'truck'];
       var sustainabilityIcons = {
         bicycle: '🌿',
         bus: '♻️',
@@ -55,22 +55,44 @@
         truck: '🔴'
       };
       
+      // Separar modo selecionado para colocar por último
+      var otherModes = [];
+      var selectedMode = null;
+      
       modes.forEach(function (m) {
+        if (m === mode) {
+          selectedMode = m;
+        } else {
+          otherModes.push(m);
+        }
+      });
+      
+      // Renderizar outros modos primeiro
+      otherModes.forEach(function (m) {
         var modeData = window.CONFIG.TRANSPORT_MODES[m];
-        var isCurrent = m === mode;
-        var cardClass = 'comparison-card ' + (isCurrent ? 'comparison-card--selected' : '');
         var sustainability = sustainabilityIcons[m] || '';
         
-        html += '<div class="' + cardClass + '">';
+        html += '<div class="comparison-card">';
         html += '<div class="comparison-icon">' + modeData.icon + '</div>';
         html += '<div class="comparison-name">' + modeData.label + '</div>';
         html += '<div class="comparison-emission">' + comparison[m].kg.toFixed(2) + ' kg</div>';
         html += '<div class="comparison-sustainability">' + sustainability + '</div>';
-        if (isCurrent) {
-          html += '<div class="comparison-badge">✓ Selecionado</div>';
-        }
         html += '</div>';
       });
+      
+      // Renderizar modo selecionado por último
+      if (selectedMode) {
+        var modeData = window.CONFIG.TRANSPORT_MODES[selectedMode];
+        var sustainability = sustainabilityIcons[selectedMode] || '';
+        
+        html += '<div class="comparison-card comparison-card--selected">';
+        html += '<div class="comparison-icon">' + modeData.icon + '</div>';
+        html += '<div class="comparison-name">' + modeData.label + '</div>';
+        html += '<div class="comparison-emission">' + comparison[selectedMode].kg.toFixed(2) + ' kg</div>';
+        html += '<div class="comparison-sustainability">' + sustainability + '</div>';
+        html += '<div class="comparison-badge">✓ Selecionado</div>';
+        html += '</div>';
+      }
       html += '</div>';
       comparisonEl.innerHTML = html;
 
